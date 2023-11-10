@@ -6,24 +6,28 @@ import (
 	"log"
 )
 
+// Request представляет структуру данных для JSON-запроса.
 type Request struct {
-	ID     int              `json:"id"`
-	Name   string           `json:"name"`
-	Cars   []Car            `json:"cars"`
-	Params map[string]Param `json:"params"`
+	ID     int              `json:"id"`     // Идентификатор запроса
+	Name   string           `json:"name"`   // Имя в запросе
+	Cars   []Car            `json:"cars"`   // Список машин в запросе
+	Params map[string]Param `json:"params"` // Параметры в запросе
 }
 
+// Car представляет структуру данных для информации о машине в запросе.
 type Car struct {
-	Plate string `json:"plate"`
-	Brand string `json:"brand"`
+	Plate string `json:"plate"` // Номер машины
+	Brand string `json:"brand"` // Марка машины
 }
 
+// Param представляет структуру данных для параметра в запросе.
 type Param struct {
-	ValueID   int64  `json:"value_id"`
-	ValueName string `json:"value_name"`
+	ValueID   int64  `json:"value_id"`   // Идентификатор значения параметра
+	ValueName string `json:"value_name"` // Имя значения параметра
 }
 
 func main() {
+	// Создаем экземпляр Request с данными.
 	request := Request{
 		ID:   123,
 		Name: "Зубенко Михаил",
@@ -36,10 +40,12 @@ func main() {
 		},
 	}
 
+	// Преобразуем структуру данных в JSON.
 	rawJSON, err := json.Marshal(request)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// Выводим JSON-представление структуры данных.
 	fmt.Println(string(rawJSON))
 }
