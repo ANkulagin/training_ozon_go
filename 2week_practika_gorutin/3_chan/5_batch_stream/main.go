@@ -46,11 +46,12 @@ func LastProcessing(jobs []job, wg *sync.WaitGroup) {
 	for i := range jobs {
 		jobs[i].value = int64(float64(jobs[i].value) / float64(rand.Intn(10)))
 		jobs[i].state = FinishedState
+
 	}
 }
 
 func main() {
-	length := 50_000_000
+	length := 5_000_000
 	jobs := make([]job, length)
 	for i := 0; i < length; i++ {
 		jobs[i].value = int64(i)
@@ -65,7 +66,9 @@ func main() {
 	go FirstProcessing(jobs[:length/2], &wg)
 	go SecondProcessing(jobs[length/2:length], &wg)
 	go LastProcessing(jobs, &wg)
-
+	for i := 0; i < length; i++ {
+		fmt.Println(jobs[i].value)
+	}
 	// Ждем завершения всех горутин.
 	wg.Wait()
 
